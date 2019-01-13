@@ -5,7 +5,8 @@ import App from './App.vue';
 
 Vue.use(ElementUI);
 
-// 123
+// 全局样式导入
+import './assets/base.css';
 
 new Vue({
   el: '#app',
