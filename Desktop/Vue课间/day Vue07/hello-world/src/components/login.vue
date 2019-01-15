@@ -55,24 +55,23 @@ export default {
           // 密码验证要向服务器发送请求所以用axios
           //成功  .then是回调函数，请求回来啦，做什么的作用
           this.$axios.post("login", this.formData).then(res =>{
-            console.log(res);
+            // console.log(res);
             if(res.data.meta.status === 400){
               //报错
-              this.$message.error(res.data.meta.msg)
+              // this.$message.error(res.data.meta.msg)//error是el-ui里面警告提示框的属性
             } else if(res.data.meta.status === 200){
                 //正确
-              this.$message({
-               message: res.data.meta.msg,
-                type:"seccess"
-              })             
+              // this.$message.success(res.data.meta.msg); 这里面的判断 已经在抽取点额组件router.js里面，用响应拦截器里面提前检测啦
+              // 保存token sessionStorage
+              window.sessionStorage.setItem('token',res.data.data.token)
+              // 去首页
+              this.$router.push('/');//编程式导航
             }
-            
           })
-
-          alert("submit!");
+          // alert("submit!");
         } else {
-          // console.log("error submit!!");
-            this.$message.error('错了哦，这是一条错误消息');
+          // 失败 弹框提示
+            this.$message.error("请正确输入用户名和密码 ^_^");
           return false;
         }
       });
